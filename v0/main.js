@@ -6,7 +6,7 @@ app.use(express.static("static"));
 
 app.use("/api/keys", require("./api/key.js"));
 app.use("/api/did", require("./api/did.js"));
-app.use("/api/jwt", require("./api/verifyJwt.js"));
+app.use("/api/testdid", require("./api/testdid.js"));
 
 app.listen(8080, (err) => {
     if (err) {

@@ -1,4 +1,5 @@
-const diddoc = require("../util/document.js");
+// test did document 
+const test = require("../util/testdid.js");
 const express = require("express");
 const router = express.Router();
 
@@ -8,9 +9,12 @@ const router = express.Router();
 
 // send did doc  post->{jwk, controller, id}
 router.post("/", (req, res) => {
-    req.body;
-    diduri = diddoc.create(req.body);
-    res.json({ "document-url": diduri });
+    if(test.testDID(req.body.jwt)){
+        res.json({ "verified": true });
+    }
+    else{
+        res.json({ "verified": false });
+    }
 }); 
 
 module.exports = router; 
