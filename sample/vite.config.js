@@ -41,11 +41,12 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
+      '/v0': 'https://did.lcyou.org',
+      '/host':{
         target: 'https://did.lcyou.org',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
+        rewrite: (path) => path.replace(/^\/host/, ''),
+      },
     }
   },
 })

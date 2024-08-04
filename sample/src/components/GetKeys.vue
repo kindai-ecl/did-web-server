@@ -1,26 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-// import getKeys from '@/utils/keys';
+import getKeys from '@/utils/keys';
 
-var keys = ref("empty key");
+var printKeys = ref("empty key");
 
-const getKeys = async () => {
-  const keys = await useFetch(
-    '/api/v0/api/keys'
-    , {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-  ).then( res => {
-    console.log(res);
-    return res.json();
-  }).catch( err => {
-    console.log(err);
-    return { msg: 'error occured' };
-  });
-  return keys;
+const initKeys = async () => {
+  const key = await getKeys();
+  printKeys.value = JSON.stringify(key, null, 2);
 };
 
 </script>
@@ -29,7 +15,7 @@ const getKeys = async () => {
     <h1>鍵を生成</h1>
     
     <div class="getKeys">
-        <button type="button" @click="getKeys">鍵を生成</button>
-        <pre>{{ keys }}</pre>
+        <button type="button" @click="initKeys">鍵を生成</button>
+        <pre>{{ printKeys }}</pre>
     </div>
 </template>

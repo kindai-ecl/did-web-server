@@ -3,7 +3,7 @@
 
 const getKeys = async () => {
   const keys = await fetch(
-    '/api/v0/api/keys'
+    '/host/v0/api/keys'
     , {
       method: 'GET',
       headers: {
