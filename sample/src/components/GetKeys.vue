@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import getKeys from '@/utils/keys';
 
-var printKeys = ref("empty key");
+var printKeys = ref("");
 
 const initKeys = async () => {
   const key = await getKeys();
@@ -12,9 +12,9 @@ const initKeys = async () => {
 </script>
 
 <template>
-    <h1>鍵を生成</h1>
-    
     <div class="getKeys">
+        <h2>Step1. Get your key pair</h2>
+
         <button type="button" @click="initKeys">鍵を生成</button>
         <pre>{{ printKeys }}</pre>
     </div>
