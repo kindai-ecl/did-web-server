@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/lCyou/did-web-server#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "did-jwt": "^8.0.4",
     "did-jwt-vc": "^4.0.4",
