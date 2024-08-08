@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import DefaultView from '../views/Default.vue'
-import Initdid from '../views/Initdid.vue'
+import DefaultView from '@/views/Default.vue'
+import Initdid from '@/views/Initdid.vue'
 
 
 const routes = [
