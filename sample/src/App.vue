@@ -5,7 +5,18 @@ import Navber from "@/views/Navber.vue";
 
 <template>
   <Navber />
-  <RouterView />
+  <router-view v-slot="{Component}">
+  </router-view>
+  <div class="footer"></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  .footer{
+    background-color: white;
+    color: black;
+    padding: 1rem 0;
+    bottom: 0;
+    width: 100%;
+    height:3rem;
+  }
+</style>
