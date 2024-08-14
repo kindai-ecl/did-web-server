@@ -12,7 +12,7 @@ import Navber from "@/views/Navber.vue";
 
 <style scoped>
   .footer{
-    background-color: white;
+    background-color: transparent;
     color: black;
     padding: 1rem 0;
     bottom: 0;
