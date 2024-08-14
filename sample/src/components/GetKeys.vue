@@ -1,12 +1,31 @@
 <script setup>
 import { ref } from 'vue';
-import getKeys from '@/utils/keys';
+import { KeyPairs, getKeys } from '@/utils/keys';
 
 var printKeys = ref("");
+var isClick = false;
 
 const initKeys = async () => {
+  isClick = true;
+
   const key = await getKeys();
-  printKeys.value = JSON.stringify(key, null, 2);
+  if (key != null) {
+    const keyJson = JSON.stringify(key, null, 2);
+    const status = KeyPairs.setkey(keyJson);
+    if (status) {
+      console.log(JSON.stringify(KeyPairs.privateKey));
+      printKeys.value = "✨ Key successfully set!";
+      return;
+    } else {
+      console.error(JSON.stringify(key, null, 2));
+      printKeys.value = "⚠️ Failed to set key.";
+    }
+  } else {
+    console.error("Failed to fetch keys.");
+    printKeys.value = "💥 Failed to fetch keys";
+  }
+
+  isClick = false;
 };
 
 </script>
@@ -15,7 +34,7 @@ const initKeys = async () => {
     <div class="getKeys">
         <h2>Step1. Get your key pair</h2>
 
-        <button type="button" @click="initKeys">鍵を生成</button>
+        <button type="button" v-bind:disabled="isClick" @click="initKeys">Generate</button>
         <pre>{{ printKeys }}</pre>
     </div>
 </template>
