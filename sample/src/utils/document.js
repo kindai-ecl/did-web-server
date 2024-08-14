@@ -1,53 +1,31 @@
-export const getKeys = async () => {
-    const keys = await fetch(
-      '/host/v0/api/keys'
-      , {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    ).then( res => {
-      console.log(res);
-      return res.json();
-    }).catch( err => {
-      console.log(err);
-      return { msg: 'error occured' };
-    });
-    return keys;
-  };
+import { reactive } from 'vue'
+import { KeyPairs } from '@/utils/keys';
+import { createJWT, ES256KSigner, hexToBytes } from 'did-jwt';
+
+export const DIDDoc = reactive ({
+  URL:"",
+});
 
 export const writeDoc = async (jwk) => {
-    // const result = await fetch(
-    //     '/host/v0/api/doc'
-    //     , {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(doc)
-    //     }
-    // ).then( res => {
-    //     console.log(res);
-    //     return res.json();
-    // }).catch( err => {
-    //     console.log(err);
-    //     return { msg: 'error occured' };
-    // });
-    // return result;
-    
-    //set timeout to 1 second
-    await new Promise(r => setTimeout(r, 3000));
-    return jwk;
+    // ! caution
+    // DID Documents should have more freedom of choice 
+    // of encryption method, authentication, and authoraization
+    // at the choice of each individual.
+
+  await new Promise(r => setTimeout(r, 3000));
+  return jwk;
 }
 
-export const postDoc = async (doc) => {
-    const result = 'test';
-    await new Promise(r => setTimeout(r, 3000));
-    return doc;
-}
+export const verifyJWK = async () => {
+  const key = KeyPairs.private;
+  const signer = ES256KSigner(hexToBytes(key))
 
-export const verifyJWK = async (jwk) => {
+  // Create a signed JWT
+  const jwt = await createJWT(
+    { aud: VITE_DID_HOST_URL, name: 'Bob Smith' },
+    { issuer: VITE_DID_HOST_URL, signer },
+    { alg: 'ES256K' }
+  )
     await new Promise(r => setTimeout(r, 3000));
     // const result = await fetch(
     //     '/host/v0/api/verify'
@@ -66,5 +44,5 @@ export const verifyJWK = async (jwk) => {
     //     return { msg: 'error occured' };
     // });
     // return result;
-    return "completed";
+    return jwt;
 }

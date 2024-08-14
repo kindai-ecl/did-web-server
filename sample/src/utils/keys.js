@@ -1,23 +1,37 @@
-// キーの発行
-// https://did.lcyou.org/v0/api/keysにGETリクエストを送ると鍵を生成してくれるのでその鍵情報を表示する
+import { reactive } from "vue";
 
-const getKeys = async () => {
-  const keys = await fetch(
-    '/host/v0/api/keys'
-    , {
+export const KeyPairs = reactive({
+  privateKey: "",
+  publicKeyJwk: {},
+  setkey(key) {
+    key = JSON.parse(key); 
+    if ( key.hasOwnProperty('private') && key.hasOwnProperty('publicKeyJwk')) {
+      this.publicKeyJwk = key.publicKeyJwk;
+      this.privateKey = key.private;
+      return true;
+    }
+    console.error('Invalid key object');
+    return false;
+  }
+});
+
+export const getKeys = async () => {
+  try {
+    const response = await fetch('/host/v0/api/keys', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
-    }
-  ).then( res => {
-    console.log(res);
-    return res.json();
-  }).catch( err => {
-    console.log(err);
-    return { msg: 'error occured' };
-  });
-  return keys;
-};
+    });
 
-export default getKeys;
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const keys = await response.json();
+    return keys;
+  } catch (err) {
+    console.error('Fetch error:', err);
+    return null;
+  }
+};
