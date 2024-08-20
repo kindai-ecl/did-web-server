@@ -8,10 +8,10 @@ const router = express.Router();
 // send did doc  post->{jwk, controller, Auth option}
 router.post("/", (req, res) => {
     diduri = diddoc.create(req.body);
-    if ( didurl == "" ) {
-        res.status(500).json({"error": "cannot generated"})
+    if ( diduri == "" ) {
+        return res.status(500).json({"error": "cannot generated"})
     }
-    res.json({ "document-url": diduri });
+    return res.status(200).json({ "document-url": diduri });
 }); 
 
 // didcore update method 

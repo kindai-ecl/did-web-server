@@ -13,7 +13,7 @@ export const writeDoc = async ( jwk, controller="" ) => {
     // at the choice of each individual.
 
   const reqBody = {
-    publickKeyJwk : jwk,
+    publicKeyJwk : jwk,
     controller : controller
   };
     
@@ -23,7 +23,7 @@ export const writeDoc = async ( jwk, controller="" ) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify (reqBody)
+      body: JSON.stringify(reqBody)
     });
     
     if (!response.ok) {
