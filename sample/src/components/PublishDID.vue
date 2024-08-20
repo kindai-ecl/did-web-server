@@ -10,7 +10,7 @@ var isClick = ref(false);
 const publishDocument = async () => {
     isClick.value = true; 
     printStatus.value = "📡 Publishing DID Document...";
-    const jwk = JSON.stringify(KeyPairs.publicKeyJwk, null, 2);
+    const jwk = KeyPairs.publicKeyJwk;
 
     try {
         const did = await writeDoc(jwk);

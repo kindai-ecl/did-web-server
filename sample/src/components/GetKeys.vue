@@ -10,10 +10,10 @@ const initKeys = async () => {
 
   const key = await getKeys();
   if (key != null) {
-    const keyJson = JSON.stringify(key, null, 2);
+    const keyJson = JSON.stringify(key);
     const status = KeyPairs.setkey(keyJson);
     if (status) {
-      console.log(JSON.stringify(KeyPairs.privateKey));
+      console.log(JSON.stringify(KeyPairs.publicKeyJwk));
       printKeys.value = "✨ Key successfully set!";
       return;
     } else {
