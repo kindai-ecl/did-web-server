@@ -55,6 +55,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/host/, ''),
       },
+      '/dev':{
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/dev/, ''),
+      },
     }
   },
 })
