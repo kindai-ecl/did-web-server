@@ -6,14 +6,35 @@ export const DIDDoc = reactive ({
   URL:"",
 });
 
-export const writeDoc = async (jwk) => {
+export const writeDoc = async ( jwk, controller="" ) => {
     // ! caution
     // DID Documents should have more freedom of choice 
     // of encryption method, authentication, and authoraization
     // at the choice of each individual.
 
-  await new Promise(r => setTimeout(r, 3000));
-  return jwk;
+  const reqBody = {
+    publickKeyJwk : jwk,
+    controller : controller
+  };
+    
+  try {
+    const response = await fetch('/host/v0/api/did', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify (reqBody)
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }  
+    const keys = await response.json();
+    return keys;
+  } catch (err) {
+    console.error('Fetch error:', err);
+    return null;
+  }
 }
 
 export const verifyJWK = async () => {
