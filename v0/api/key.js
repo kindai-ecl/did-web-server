@@ -1,7 +1,5 @@
 // if you can generate keys in the browser, MUST not use this 
 
-// import crypto from 'crypto';
-// import elliptic from 'elliptic';
 const crypto = require("crypto");
 const elliptic = require("elliptic");
 
