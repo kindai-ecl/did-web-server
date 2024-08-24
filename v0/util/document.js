@@ -2,7 +2,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+const crypto = require('crypto'); 
 
 const dirPath = path.join(process.env.SERVICE_DIR_PATH);
 const servicePath = process.env.SERVICE_URI ;
@@ -37,8 +37,6 @@ function create(reqBody){
     req = JSON.parse(JSON.stringify(reqBody));
     pk = req.publicKeyJwk;
     controller = req.controller;
-    console.log(req);
-    console.log(pk);
     if ( pk == null ) {
         console.error( "public key is not defined" );
         return "";
@@ -78,7 +76,8 @@ function create(reqBody){
         }
     });
 
-    return path.join( servicePath, "user", username, "did.json");
+    console.log(servicePath +userpath+"/did.json");
+    return servicePath + userpath + "/did.json";
 }
 
 exports.create = create;
