@@ -4,6 +4,7 @@ import { DIDDoc, writeDoc } from '@/utils/document';
 import { KeyPairs } from '@/utils/keys';
 
 var printStatus = ref("");
+var isAvailable = ref(false);
 var isClick = ref(false);
 
 
@@ -18,7 +19,7 @@ const publishDocument = async () => {
             DIDDoc.URL = did["document-url"];
             printStatus.value = "✨ DID Document published! \n" + JSON.stringify(did);
         } else { 
-            printStatus.value = "⚠️ Failed to publish DID Document.\n" + JSON.stringify(did);
+            printStatus.value = "⚠ Failed to publish DID Document.\n" + JSON.stringify(did);
             isClick.value = false;
         }
     } catch (error) {
@@ -31,9 +32,10 @@ watch(
     () => [KeyPairs.privateKey, KeyPairs.publicKeyJwk],
     ([newPrivateKey, newPublicKeyJwk]) => {
         if (newPrivateKey && Object.keys(newPublicKeyJwk).length > 0) {
-            isClick.value = false; 
+            isAvailable.value = true; 
+
         } else {
-            isClick.value = true;
+            isAvailable.value = false;
         }
     },
     { immediate: true }
@@ -42,7 +44,7 @@ watch(
 </script>
 
 <template>
-    <div class="getKeys">
+    <div class="getKeys" v-if="isAvailable">
         <h2>Step2. Publish your DID document</h2>
 
         <button type="button" v-bind:disabled="isClick"  @click="publishDocument">Publish</button>
