@@ -23,7 +23,7 @@
                 </NavLink>
             </router-link>
           </li>
-          <li><a href="#about">About</a></li>
+          <li><a href="/did">About</a></li>
         </ul>
       </div>
     </nav>
