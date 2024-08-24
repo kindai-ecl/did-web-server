@@ -32,7 +32,8 @@ const initKeys = async () => {
 
 <template>
     <div class="getKeys">
-        <h2>Step1. Get your key pair</h2>
+        <h2 v-if="!isClick">Step1. Get your key pair</h2>
+        <h2 v-else style="color:darkgray">Step1. Done</h2>
 
         <button type="button" v-bind:disabled="isClick" @click="initKeys">Generate</button>
         <pre>{{ printKeys }}</pre>
