@@ -1,7 +1,19 @@
 <script setup>
 import { ref, watch } from 'vue';
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { DIDDoc, writeDoc } from '@/utils/document';
 import { KeyPairs } from '@/utils/keys';
+
+
+// same as beforeRouteLeave option but with no access to `this`
+onBeforeRouteLeave((to, from) => {
+    const answer = window.confirm(
+        'Do you really want to leave? you have unsaved changes!'
+    )
+    // cancel the navigation and stay on the same page
+    if (!answer) return false
+    removeDoc()
+})
 
 var printStatus = ref("");
 var isAvailable = ref(false);
@@ -17,7 +29,7 @@ const publishDocument = async () => {
         const did = await writeDoc(jwk);
         if ( did["document-url"] ) {
             DIDDoc.URL = did["document-url"];
-            printStatus.value = "✨ DID Document published! \n" + JSON.stringify(did);
+            printStatus.value = "✨ DID Document published! \n" + DIDDoc.URL;
         } else { 
             printStatus.value = "⚠ Failed to publish DID Document.\n" + JSON.stringify(did);
             isClick.value = false;
@@ -33,7 +45,6 @@ watch(
     ([newPrivateKey, newPublicKeyJwk]) => {
         if (newPrivateKey && Object.keys(newPublicKeyJwk).length > 0) {
             isAvailable.value = true; 
-
         } else {
             isAvailable.value = false;
         }
