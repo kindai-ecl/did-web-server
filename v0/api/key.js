@@ -16,7 +16,7 @@ function getKeys(){
     const pub = prv.getPublic();
 
     return {
-        "private": btoa(key),
+        "private": key,
         "publicKeyJwk": {
             "x": pub.x.toBuffer().toString('base64'),
             "y": pub.y.toBuffer().toString('base64'),
