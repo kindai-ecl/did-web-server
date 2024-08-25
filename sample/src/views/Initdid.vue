@@ -3,6 +3,7 @@ import GetKeys from '@/components/GetKeys.vue';
 import PublishDID from '@/components/PublishDID.vue';
 import VerifyDoc from '@/components/VerifyDoc.vue';
 import PWABadge from '@/components/PWABadge.vue';
+import { DIDDoc } from '@/utils/document';
 
 </script>
 
@@ -11,7 +12,7 @@ import PWABadge from '@/components/PWABadge.vue';
     <GetKeys />
     <PublishDID />
     <VerifyDoc />
-    <h2> &#x1F389; Now you available to use your DID &#x1F389;</h2>
+    <h2 v-show="DIDDoc.verified"> &#x1F389; Now you available to use your DID &#x1F389;</h2>
     <PWABadge />
 </template>
 
