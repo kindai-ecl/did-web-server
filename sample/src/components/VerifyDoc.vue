@@ -14,7 +14,7 @@ const verifyDoc = async () => {
 
     printStatus.value = "🔍 Verifying JWK...\n";
     const isVerified = await verifyJWK();
-    printStatus.value = "✅ JWK verified!\n" + isVerified;
+    printStatus.value = "✅ JWK verified!\n" + JSON.stringify(isVerified);
 
 };
 
