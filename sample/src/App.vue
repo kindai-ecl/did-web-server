@@ -1,11 +1,22 @@
 <script setup>
 import { RouterView } from "vue-router";
-import Navber from "@/views/Navber.vue";
+import Navber from "@/components/Navber.vue";
 </script>
 
 <template>
   <Navber />
-  <RouterView />
+  <router-view v-slot="{Component}">
+  </router-view>
+  <div class="footer"></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  .footer{
+    background-color: transparent;
+    color: black;
+    padding: 1rem 0;
+    bottom: 0;
+    width: 100%;
+    height:3rem;
+  }
+</style>

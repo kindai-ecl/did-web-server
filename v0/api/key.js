@@ -1,7 +1,5 @@
 // if you can generate keys in the browser, MUST not use this 
 
-// import crypto from 'crypto';
-// import elliptic from 'elliptic';
 const crypto = require("crypto");
 const elliptic = require("elliptic");
 
@@ -18,7 +16,7 @@ function getKeys(){
     const pub = prv.getPublic();
 
     return {
-        "private": btoa(key),
+        "private": key,
         "publicKeyJwk": {
             "x": pub.x.toBuffer().toString('base64'),
             "y": pub.y.toBuffer().toString('base64'),
@@ -33,4 +31,5 @@ router.get("/", (req, res) => {
     key = getKeys();
     res.json(key);
 });
+
 module.exports = router;

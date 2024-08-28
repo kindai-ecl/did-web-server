@@ -2,50 +2,66 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), VitePWA({
-    registerType: 'autoUpdate',
-    injectRegister: false,
+  plugins: [
+    vue(), 
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
 
-    pwaAssets: {
-      disabled: false,
-      config: true,
-    },
+      pwaAssets: {
+        disabled: false,
+        config: true,
+      },
 
-    manifest: {
-      name: 'sample',
-      short_name: 'sample',
-      description: 'issuer sample',
-      theme_color: '#7fffbf',
-    },
+      manifest: {
+        name: 'issuer sample app',
+        short_name: 'issuer',
+        description: 'issuer sample app ',
+        theme_color: '#7fffbf',
+        display: 'standalone',
+        shart_url: '/'
+      },
 
-    workbox: {
-      globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-      cleanupOutdatedCaches: true,
-      clientsClaim: true,
-    },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+      },
 
-    devOptions: {
-      enabled: false,
-      navigateFallback: 'index.html',
-      suppressWarnings: true,
-      type: 'module',
-    },
-  })],
+      devOptions: {
+        enabled: true,
+        navigateFallback: 'index.html',
+        suppressWarnings: true,
+        type: 'module',
+      },
+    })
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src/', import.meta.url)),
     },
   },
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL),
+  },
   server: {
     proxy: {
-      '/v0': 'https://did.lcyou.org',
       '/host':{
-        target: 'https://did.lcyou.org',
+        target: 'https://did.lcyou.org/',
+        // target: JSON.stringify(process.env.VITE_API_URL),
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/host/, ''),
+      },
+      '/dev':{
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/dev/, ''),
       },
     }
   },
