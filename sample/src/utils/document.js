@@ -19,7 +19,7 @@ export const writeDoc = async ( jwk, controller="" ) => {
   };
     
   try {
-    const response = await fetch('/dev/api/did', {
+    const response = await fetch('/host/v0/api/did', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -30,8 +30,8 @@ export const writeDoc = async ( jwk, controller="" ) => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }  
-    const keys = await response.json();
-    return keys;
+    const docurl = await response.json();
+    return docurl;
   } catch (err) {
     console.error('Fetch error:', err);
     return null;
@@ -40,7 +40,7 @@ export const writeDoc = async ( jwk, controller="" ) => {
 
 export const verifyJWK = async () => {
   const key = KeyPairs.privateKey;
-  console.log(key, typeof key);
+  console.log(key);
   const signer = ES256KSigner(hexToBytes(key,32))
 
   // Create a signed JWT
@@ -51,12 +51,12 @@ export const verifyJWK = async () => {
   )
 
   const result = await fetch(
-    '/dev/api/verify', {
+    '/host/v0/api/testdid', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(jwt)
+      body: JSON.stringify({'jwt': jwt})
     }
   ).then( res => {
       console.log(res);
