@@ -23,7 +23,7 @@ export default defineConfig({
         name: 'issuer sample app',
         short_name: 'issuer',
         description: 'issuer sample app ',
-        theme_color: '#7fffbf',
+        theme_color: '#3cb371',
         display: 'standalone',
         shart_url: '/'
       },

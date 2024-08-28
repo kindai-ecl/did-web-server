@@ -50,7 +50,7 @@ import 'primeicons/primeicons.css';
   
   <style scoped>
   .navbar {
-    background-color: #7fffbf;
+    background-color: #3cb371;
     color: black;
     padding: 1rem 0;
     position: fixed;
