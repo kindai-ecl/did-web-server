@@ -3,9 +3,16 @@ const didjwt = require('did-jwt');
 const didResolver = require('did-resolver');
 const webdidResolver = require('web-did-resolver');
 
-async function testDID(jwt){
-    const decoded = didjwt.decodeJWT(jwt)
-    console.log('\n//// JWT Decoded:\n',decoded)
+async function testDID(reqBody){
+    req = JSON.parse(JSON.stringify(reqBody));
+    if(req.jwt == null){
+        console.error("jwt is not defined");
+        return false;
+    }
+    const jwt = req.jwt;
+
+    const decoded = didjwt.decodeJWT(jwt);
+    console.log('\n//// JWT Decoded:\n',decoded);
     
     const webResolver = webdidResolver.getResolver()
     const resolver = new didResolver.Resolver({
@@ -25,6 +32,7 @@ async function testDID(jwt){
       console.error(err)
     })
 
+    console.log("internal error");
     return false
 }
 

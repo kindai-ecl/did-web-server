@@ -9,11 +9,12 @@ const router = express.Router();
 
 // send did doc  post->{jwk, controller, id}
 router.post("/", (req, res) => {
-    if(test.testDID(req.body.jwt)){
-        res.json({ "verified": true });
-    }
-    else{
-        res.json({ "verified": false });
+    if(test.testDID(req.body)){
+        res.status(200).json({ "verified": true });
+        return;
+    } else {
+        res.status(500).json({ "verified": false });
+        return;
     }
 }); 
 
