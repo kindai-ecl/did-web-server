@@ -1,19 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { DIDDoc, writeDoc } from '@/utils/document';
 import { KeyPairs } from '@/utils/keys';
-
-
-// same as beforeRouteLeave option but with no access to `this`
-onBeforeRouteLeave((to, from) => {
-    const answer = window.confirm(
-        'Do you really want to leave? you have unsaved changes!'
-    )
-    // cancel the navigation and stay on the same page
-    if (!answer) return false
-    removeDoc()
-})
 
 var printStatus = ref("");
 var isAvailable = ref(false);

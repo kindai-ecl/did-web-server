@@ -1,10 +1,21 @@
 <script setup>
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
+
 import GetKeys from '@/components/GetKeys.vue';
 import PublishDID from '@/components/PublishDID.vue';
 import VerifyDoc from '@/components/VerifyDoc.vue';
 import PWABadge from '@/components/PWABadge.vue';
-import { DIDDoc } from '@/utils/document';
+import { DIDDoc, removeDoc } from '@/utils/document';
 
+// same as beforeRouteLeave option but with no access to `this`
+onBeforeRouteLeave((to, from) => {
+    const answer = window.confirm(
+        'Do you really want to leave? you have unsaved changes!'
+    )
+    // cancel the navigation and stay on the same page
+    if (!answer) return false
+    removeDoc()
+})
 </script>
 
 <template>
