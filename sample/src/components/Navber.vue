@@ -1,4 +1,7 @@
 <!-- components/Navbar.vue -->
+<script setup>
+import 'primeicons/primeicons.css';
+</script>
 <template>
     <nav class="navbar">
       <div class="container">
@@ -9,21 +12,30 @@
                 v-slot="{ href, route, navigate, isActive, isExactActive }"
             >
                 <NavLink :active="isActive" :href="href" @click="navigate">
-                    home
+                  <i class="pi pi-address-book" style="font-size: 2rem"></i>
+                </NavLink>
+              </router-link>
+            </li>
+            <li>
+              <router-link
+              to="/did"
+              v-slot="{ href, route, navigate, isActive, isExactActive }"
+              >
+              <NavLink :active="isActive" :href="href" @click="navigate">
+                  <i class="pi pi-plus" style="font-size: 2rem"></i>
                 </NavLink>
             </router-link>
           </li>
           <li>
             <router-link
-                to="/did"
-                v-slot="{ href, route, navigate, isActive, isExactActive }"
+              to="/vc"
+              v-slot="{ href, route, navigate, isActive, isExactActive }"
             >
-                <NavLink :active="isActive" :href="href" @click="navigate">
-                    publish
-                </NavLink>
+              <NavLink :active="isActive" :href="href" @click="navigate">
+                <i class="pi pi-qrcode" style="font-size: 2rem"></i>
+              </NavLink>
             </router-link>
           </li>
-          <li><a href="/did">About</a></li>
         </ul>
       </div>
     </nav>
@@ -55,11 +67,12 @@
   
   .nav-links {
     list-style: none;
-    justify-content: space-between;
+    justify-content: space-around;
     display: flex;
     gap: 2rem;
     margin: 0;
     padding: 0.5rem;
+    width: 80%;
   }
   
   .nav-links a {
