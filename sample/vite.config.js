@@ -8,37 +8,40 @@ dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), VitePWA({
-    registerType: 'autoUpdate',
-    injectRegister: 'auto',
+  plugins: [
+    vue(), 
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
 
-    pwaAssets: {
-      disabled: false,
-      config: true,
-    },
+      pwaAssets: {
+        disabled: false,
+        config: true,
+      },
 
-    manifest: {
-      name: 'issuer sample app',
-      short_name: 'issuer',
-      description: 'issuer sample app ',
-      theme_color: '#7fffbf',
-      display: 'standalone',
-      shart_url: '/'
-    },
+      manifest: {
+        name: 'issuer sample app',
+        short_name: 'issuer',
+        description: 'issuer sample app ',
+        theme_color: '#7fffbf',
+        display: 'standalone',
+        shart_url: '/'
+      },
 
-    workbox: {
-      globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-      cleanupOutdatedCaches: true,
-      clientsClaim: true,
-    },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+      },
 
-    devOptions: {
-      enabled: true,
-      navigateFallback: 'index.html',
-      suppressWarnings: true,
-      type: 'module',
-    },
-  })],
+      devOptions: {
+        enabled: true,
+        navigateFallback: 'index.html',
+        suppressWarnings: true,
+        type: 'module',
+      },
+    })
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src/', import.meta.url)),
