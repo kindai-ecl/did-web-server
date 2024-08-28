@@ -14,7 +14,13 @@ const routes = [
     path: '/did/',
     name: 'did',
     component: Initdid
+  },
+  {
+    path: '/vc/',
+    name: 'vc',
+    component: Initdid
   }
+
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
