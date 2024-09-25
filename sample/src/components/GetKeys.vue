@@ -1,14 +1,33 @@
 <script setup>
 import { ref } from 'vue';
 import { KeyPairs, getKeys } from '@/utils/keys';
+import crypto from 'crypto';
+import elliptic from 'elliptic';
 
-var printKeys = ref("");
+var printKeys = ref("ee");
 var isClick = false;
 
 const initKeys = async () => {
   isClick = true;
 
-  const key = await getKeys();
+  const randomString = crypto.randomBytes(32).toString("hex");
+  const pk = randomString;
+
+  const ec = new elliptic.ec('secp256k1');
+  const prv = ec.keyFromPrivate(pk, 'hex');
+  const pub = prv.getPublic();
+
+  const key = {
+        "private": pk,
+        "publicKeyJwk": {
+            "x": pub.x.toBuffer().toString('base64'),
+            "y": pub.y.toBuffer().toString('base64'),
+            "kty": 'EC',
+            "crv": 'secp256k1',
+        }
+    }
+
+
   if (key != null) {
     const keyJson = JSON.stringify(key);
     const status = KeyPairs.setkey(keyJson);
