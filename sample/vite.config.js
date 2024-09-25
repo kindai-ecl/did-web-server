@@ -3,8 +3,13 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url';
 import * as dotenv from 'dotenv';
+import inject from '@rollup/plugin-inject';
+import { createRequire } from 'module';
+import stdLibBrowser from 'node-stdlib-browser';
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 dotenv.config();
+const require = createRequire(import.meta.url);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -40,15 +45,58 @@ export default defineConfig({
         suppressWarnings: true,
         type: 'module',
       },
-    })
+    }),
+    {
+      ...inject({
+        global: [
+          require.resolve(
+            './node_modules/node-stdlib-browser/helpers/esbuild/shim',
+          ),
+          'global',
+        ],
+        process: [
+          require.resolve(
+            './node_modules/node-stdlib-browser/helpers/esbuild/shim',
+          ),
+          'process',
+        ],
+        Buffer: [
+          require.resolve(
+            './node_modules/node-stdlib-browser/helpers/esbuild/shim',
+          ),
+          'Buffer',
+        ],
+      }),
+      enforce: 'post',
+    },
+    // nodePolyfills({
+    //   exclude: [
+    //     "buffer",
+    //     "crypto",
+    //   ],
+    //   globals: {
+    //     Buffer: true,
+    //     global: true,
+    //     process: true,
+    //   },
+    //   protocolImports: true,
+    // }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src/', import.meta.url)),
+      // crypto: 'crypto-browserify',
+      ...stdLibBrowser,
     },
   },
   define: {
     'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL),
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext',
+    },
+    include: ['buffer', 'crypto', 'process'],
   },
   server: {
     proxy: {
