@@ -20,7 +20,7 @@ function registerPeriodicSync(swUrl, r) {
       return
 
     const resp = await fetch(swUrl, {
-      cache: 'no-store',
+      cache: 'default', // ここのキャッシュ戦略はカギ生成の部分に大きく関わるのでは？
       headers: {
         'cache': 'no-store',
         'cache-control': 'no-cache',
