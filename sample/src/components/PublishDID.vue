@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { DIDDoc, writeDoc } from '@/utils/document';
+import { document, writeDoc } from '@/utils/document';
 import { KeyPairs } from '@/utils/keys';
 
 var printStatus = ref("");
@@ -16,8 +16,9 @@ const publishDocument = async () => {
     try {
         const did = await writeDoc(jwk);
         if ( did["document-url"] ) {
-            DIDDoc.URL = did["document-url"];
-            printStatus.value = "✨ DID Document published! \n" + DIDDoc.URL;
+            document.location = did["document-url"];
+            document.uri = did["uri"];
+            printStatus.value = "✨ DID Document published! \n" + document.location;
         } else { 
             printStatus.value = "⚠ Failed to publish DID Document.\n" + JSON.stringify(did);
             isClick.value = false;

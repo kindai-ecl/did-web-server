@@ -4,7 +4,7 @@ import { KeyPairs, getKeys } from '@/utils/keys';
 import crypto from 'crypto';
 import elliptic from 'elliptic';
 
-var printKeys = ref("ee");
+var printKeys = ref("");
 var isClick = false;
 
 const initKeys = async () => {
