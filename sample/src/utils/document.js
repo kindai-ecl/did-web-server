@@ -2,10 +2,11 @@ import { reactive } from 'vue'
 import { KeyPairs } from './keys';
 import { createJWT, ES256KSigner, hexToBytes } from 'did-jwt';
 
-export const DIDDoc = reactive ({
-  URL:"",
+export const document = reactive({
+  location: "",
+  uri: "",
   verified: false,
-});
+})
 
 export const writeDoc = async ( jwk, controller="" ) => {
     // ! caution

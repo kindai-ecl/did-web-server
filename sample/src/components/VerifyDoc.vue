@@ -1,8 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { createJWT, ES256KSigner, hexToBytes } from 'did-jwt';
-import { verifyJWK, DIDDoc } from '@/utils/document';
-import { KeyPairs } from '@/utils/keys';
+import { verifyJWK, document } from '@/utils/document';
+
 
 var printStatus = ref("");
 var isAvailable = ref(false);
@@ -19,9 +18,9 @@ const verifyDoc = async () => {
 };
 
 watch(
-    () => [DIDDoc.URL],
-    ([url]) => {
-        if (url && url.length > 0) {
+    () => [document.location],
+    ([uri]) => {
+        if (uri && uri.length > 0) {
             isAvailable.value = true; 
         } else {
             isAvailable.value = false;
