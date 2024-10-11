@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const path = require('path');
-const routes = express.Router();
 
 app.use(express.json());
 app.use(express.static("static"));
