@@ -5,7 +5,7 @@ import GetKeys from '@/components/GetKeys.vue';
 import PublishDID from '@/components/PublishDID.vue';
 import VerifyDoc from '@/components/VerifyDoc.vue';
 import PWABadge from '@/components/PWABadge.vue';
-import { DIDDoc, removeDoc } from '@/utils/document';
+import { document, removeDoc } from '@/utils/document';
 
 // same as beforeRouteLeave option but with no access to `this`
 onBeforeRouteLeave((to, from) => {
@@ -23,7 +23,7 @@ onBeforeRouteLeave((to, from) => {
     <GetKeys />
     <PublishDID />
     <VerifyDoc />
-    <h2 v-show="DIDDoc.verified"> &#x1F389; Now you available to use your DID &#x1F389;</h2>
+    <h2 v-show="document.verified"> &#x1F389; Now you available to use your DID &#x1F389;</h2>
     <PWABadge />
 </template>
 
