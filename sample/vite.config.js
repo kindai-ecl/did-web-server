@@ -69,18 +69,6 @@ export default defineConfig({
       }),
       enforce: 'post',
     },
-    // nodePolyfills({
-    //   exclude: [
-    //     "buffer",
-    //     "crypto",
-    //   ],
-    //   globals: {
-    //     Buffer: true,
-    //     global: true,
-    //     process: true,
-    //   },
-    //   protocolImports: true,
-    // }),
   ],
   resolve: {
     alias: {
@@ -101,10 +89,14 @@ export default defineConfig({
   server: {
     proxy: {
       '/host':{
-        target: 'https://did.lcyou.org/',
-        // target: JSON.stringify(process.env.VITE_API_URL),
+        target: 'https://did.lcyou.org/v0/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/host/, ''),
+      },
+      '/ecl':{
+        target: 'https://ecls.info.kindai.ac.jp/did/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ecl/, ''),
       },
       '/dev':{
         target: 'http://localhost:8080',
