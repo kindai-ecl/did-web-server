@@ -80,4 +80,16 @@ function create(reqBody){
     return servicePath + userpath + "/did.json";
 }
 
+function read(id, callback){
+    const userpath = path.join( "/user", id );
+    fs.readFile(path.join
+        ( dirPath, userpath, "did.json" ), (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            callback(err, null);
+        }
+        callback(null, JSON.parse(data));
+    });
+}
+
 exports.create = create;
