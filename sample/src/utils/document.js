@@ -20,7 +20,7 @@ export const writeDoc = async ( jwk, controller="" ) => {
   };
     
   try {
-    const response = await fetch('/host/v0/api/did', {
+    const response = await fetch('/ecl/api/did', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export const verifyJWK = async () => {
   )
 
   const result = await fetch(
-    '/host/v0/api/testdid', {
+    '/ecl/api/testdid', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
