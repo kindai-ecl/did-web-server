@@ -99,7 +99,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/ecl/, ''),
       },
       '/dev':{
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8080/did/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/dev/, ''),
       },

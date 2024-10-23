@@ -39,15 +39,15 @@ export const writeDoc = async ( jwk, controller="" ) => {
   }
 }
 
-export const verifyJWK = async () => {
+export const verifyJWK = async ( uri ) => {
   const key = KeyPairs.privateKey;
   console.log(key);
   const signer = ES256KSigner(hexToBytes(key,32))
 
   // Create a signed JWT
   const jwt = await createJWT(
-    { aud: import.meta.env.VITE_DID_HOST_URL, name: 'Bob Smith' },
-    { issuer: import.meta.env.VITE_DID_HOST_URL, signer },
+    { aud: uri, name: 'Bob Smith' },
+    { issuer: uri, signer },
     { alg: 'ES256K' }
   )
 

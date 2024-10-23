@@ -12,7 +12,7 @@ const verifyDoc = async () => {
     isClick = true;
 
     printStatus.value = "🔍 Verifying JWK...\n";
-    const isVerified = await verifyJWK();
+    const isVerified = await verifyJWK( document.uri );
     printStatus.value = "✅ JWK verified!\n" + JSON.stringify(isVerified);
 
 };
