@@ -92,4 +92,4 @@ function read(id, callback){
     });
 }
 
-exports.create = create;
+module.exports = { create, read} ;
