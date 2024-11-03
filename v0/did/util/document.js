@@ -18,7 +18,7 @@ function validateDoc(didDoc){
 function generateName() {
     // username をランダムに生成する。
     // サービスが巨大になったりユーザーのアクセスを考えると非推奨
-    return encodeURIComponent(crypto.randomBytes(16).toString('base64'));
+    return encodeURIComponent(crypto.randomBytes(16).toString('base64').replace(/=+$/, ''));
 }
 
 function create(reqBody){
@@ -85,11 +85,11 @@ function read(id, callback){
     fs.readFile(path.join
         ( dirPath, userpath, "did.json" ), (err, data) => {
         if (err) {
-            console.error('Error reading file:', err);
+            console.error('Error reading file:\n', err);
             callback(err, null);
         }
         callback(null, JSON.parse(data));
     });
 }
 
-exports.create = create;
+module.exports = { create, read} ;

@@ -16,6 +16,7 @@
     "dotenv": "^16.4.5",
     "elliptic": "^6.5.7",
     "node-stdlib-browser": "^1.2.1",
+    "pinia": "^2.2.5",
     "primeicons": "^7.0.0",
     "vue": "^3.4.26",
     "vue-router": "4"
