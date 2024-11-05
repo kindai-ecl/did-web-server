@@ -2,6 +2,7 @@ require('dotenv').config();
 
 module.exports = {
   apps : [{
+    name: "didweb_server",
     script: 'main.js',
     watch: '.'
   }, 
