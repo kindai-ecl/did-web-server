@@ -30,7 +30,7 @@ function create(reqBody){
     const username = generateName();
     const userpath = path.join( "/user", username );
 
-    const id = process.env.DID_HOST_URL + userpath + "#owner"
+    const id = process.env.DID_HOST_URL + ":user:" + username + "#owner"
 
     // create verification method
     // pk = JSON.stringify(reqBody.publicKeyJwk);
@@ -78,7 +78,10 @@ function create(reqBody){
     });
 
     console.log(servicePath +userpath+"/did.json");
-    return servicePath + userpath + "/did.json";
+    return {
+        location: servicePath + userpath + "/did.json",
+        uri: id,
+    };
 }
 
 function read(id, callback){

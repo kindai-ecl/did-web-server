@@ -11,7 +11,7 @@ router.post("/", (req, res) => {
     if ( diduri == "" ) {
         return res.status(500).json({"error": "cannot generated"})
     }
-    return res.status(200).json({ "document-url": diduri });
+    return res.status(200).json(diduri);
 }); 
 
 router.get("/user/:id", (req, res) => {
