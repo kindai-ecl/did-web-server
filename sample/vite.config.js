@@ -89,15 +89,15 @@ export default defineConfig({
   server: {
     proxy: {
       '/host':{
-        target: 'https://did.lcyou.org/v0/',
+        target: 'https://did.lcyou.org/v0/did',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/host/, ''),
       },
-      '/ecl':{
-        target: 'https://ecls.info.kindai.ac.jp/did/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ecl/, ''),
-      },
+      // '/ecl':{
+      //   target: 'https://ecls.info.kindai.ac.jp/did/',
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace(/^\/ecl/, ''),
+      // },
       '/dev':{
         target: 'http://localhost:8080/did/',
         changeOrigin: true,

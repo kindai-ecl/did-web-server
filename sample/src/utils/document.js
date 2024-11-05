@@ -20,7 +20,7 @@ export const writeDoc = async ( jwk, controller="" ) => {
   };
     
   try {
-    const response = await fetch('/ecl/api/did', {
+    const response = await fetch('/host/api/did', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -50,9 +50,13 @@ export const verifyJWK = async ( uri ) => {
     { issuer: uri, signer },
     { alg: 'ES256K' }
   )
+  .catch( err => {
+      console.log(err);
+    }
+  );
 
   const result = await fetch(
-    '/ecl/api/testdid', {
+    '/host/api/testdid', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

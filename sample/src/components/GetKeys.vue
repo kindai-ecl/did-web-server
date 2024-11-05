@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { KeyPairs, getKeys } from '@/utils/keys';
+import { KeyPairs } from '@/utils/keys';
 import crypto from 'crypto';
 import elliptic from 'elliptic';
 

@@ -17,7 +17,7 @@ export const KeyPairs = reactive({
 
 export const getKeys = async () => {
   try {
-    const response = await fetch('/ecl/api/keys', {
+    const response = await fetch('/host/api/keys', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
