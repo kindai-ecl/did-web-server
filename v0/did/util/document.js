@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
@@ -77,9 +76,9 @@ function create(reqBody){
         }
     });
 
-    console.log(servicePath +userpath+"/did.json");
+    console.log(servicePath +userpath);
     return {
-        location: servicePath + userpath + "/did.json",
+        location: servicePath + userpath,
         uri: id,
     };
 }
