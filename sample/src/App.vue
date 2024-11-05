@@ -1,5 +1,6 @@
 <script setup>
 import { RouterView } from "vue-router";
+import "@/utils/indexedDB";
 import Navber from "@/components/Navber.vue";
 </script>
 

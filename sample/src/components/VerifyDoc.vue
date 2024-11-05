@@ -1,12 +1,12 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { verifyJWK, document } from '@/utils/document';
+import { KeyPairs } from '@/utils/keys';
 
 
 var printStatus = ref("");
 var isAvailable = ref(false);
 var isClick = ref(false);
-
 
 const verifyDoc = async () => {
     isClick = true;
@@ -14,7 +14,6 @@ const verifyDoc = async () => {
     printStatus.value = "🔍 Verifying JWK...\n";
     const isVerified = await verifyJWK( document.uri );
     printStatus.value = "✅ JWK verified!\n" + JSON.stringify(isVerified);
-
 };
 
 watch(
