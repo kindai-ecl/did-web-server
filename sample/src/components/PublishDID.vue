@@ -15,8 +15,8 @@ const publishDocument = async () => {
 
     try {
         const did = await writeDoc(jwk);
-        if ( did["document-url"] ) {
-            document.location = did["document-url"];
+        if ( did["location"] ) {
+            document.location = did["location"];
             document.uri = did["uri"];
             printStatus.value = "✨ DID Document published! \n" + document.location;
         } else { 

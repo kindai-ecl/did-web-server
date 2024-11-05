@@ -11,9 +11,9 @@ import 'primeicons/primeicons.css';
                 to="/"
                 v-slot="{ href, route, navigate, isActive, isExactActive }"
             >
-                <NavLink :active="isActive" :href="href" @click="navigate">
+                <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->
                   <i class="pi pi-address-book" style="font-size: 2rem"></i>
-                </NavLink>
+                <!-- </NavLink> -->
               </router-link>
             </li>
             <li>
@@ -21,9 +21,9 @@ import 'primeicons/primeicons.css';
               to="/did"
               v-slot="{ href, route, navigate, isActive, isExactActive }"
               >
-              <NavLink :active="isActive" :href="href" @click="navigate">
+              <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->
                   <i class="pi pi-plus" style="font-size: 2rem"></i>
-                </NavLink>
+                <!-- </NavLink> -->
             </router-link>
           </li>
           <li>
@@ -31,9 +31,9 @@ import 'primeicons/primeicons.css';
               to="/vc"
               v-slot="{ href, route, navigate, isActive, isExactActive }"
             >
-              <NavLink :active="isActive" :href="href" @click="navigate">
+              <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->
                 <i class="pi pi-qrcode" style="font-size: 2rem"></i>
-              </NavLink>
+              <!-- </NavLink> -->
             </router-link>
           </li>
         </ul>
