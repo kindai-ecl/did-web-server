@@ -18,7 +18,8 @@ function validateDoc(didDoc){
 function generateName() {
     // username をランダムに生成する。
     // サービスが巨大になったりユーザーのアクセスを考えると非推奨
-    return encodeURIComponent(crypto.randomBytes(16).toString('base64').replace(/=+$/, ''));
+    // return encodeURIComponent(crypto.randomBytes(16).toString('base64').replace(/=+$/, ''));
+    return crypto.randomUUID();
 }
 
 function create(reqBody){
@@ -92,4 +93,4 @@ function read(id, callback){
     });
 }
 
-module.exports = { create, read} ;
+module.exports = { create, read } ;
