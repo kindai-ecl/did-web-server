@@ -6,9 +6,16 @@ app.use(express.json());
 app.use(express.static("static"));
 app.use(cors());
 
-app.use("/did/api/keys", require("./did/api/key.js"));
-app.use("/did/api/did", require("./did/api/document.js"));
-app.use("/did/api/testdid", require("./did/api/testdid.js"));
+const routes = [
+  { path: "/did/api/keys", module: "./did/api/key.js" },
+  { path: "/did/api/did", module: "./did/api/document.js" },
+  { path: "/did/api/testdid", module: "./did/api/testdid.js" },
+  { path: "/did/user", module: "./did/api/read.js" },
+];
+
+routes.forEach(route => {
+  app.use(route.path, require(route.module));
+});
 
 app.listen(8080, (err) => {
     if (err) {

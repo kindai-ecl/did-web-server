@@ -14,15 +14,6 @@ router.post("/", (req, res) => {
     return res.status(200).json(diduri);
 }); 
 
-router.get("/user/:id", (req, res) => {
-    diddoc.read(req.params.id, (err, data) => {
-        if (err) {
-            return res.status(404).json({"error": "cannot read"})
-        }
-        return res.status(200).json(data);
-    });
-});
-
 // didcore update method 
 router.put("/", (req, res) => {
 
