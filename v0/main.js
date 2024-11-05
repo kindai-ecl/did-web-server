@@ -8,7 +8,7 @@ app.use(cors());
 
 const routes = [
   { path: "/did/api/healthez", module: "./did/api/healthez.js" },
-  { path: "/did/api/did", module: "./did/api/document.js" },
+  { path: "/did/api/document", module: "./did/api/document.js" },
   { path: "/did/api/testdid", module: "./did/api/testdid.js" },
   { path: "/did/user", module: "./did/api/read.js" },
 ];
