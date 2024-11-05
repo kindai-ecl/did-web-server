@@ -89,7 +89,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/host':{
-        target: 'https://did.lcyou.org/v0/did',
+        target: 'https://did.lcyou.org/did',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/host/, ''),
       },
