@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { verifyJWK, document } from '@/utils/document';
 import { KeyPairs } from '@/utils/keys';
-
+import { addDid, addKey } from '../utils/indexedDB';
 
 var printStatus = ref("");
 var isAvailable = ref(false);
@@ -13,6 +13,8 @@ const verifyDoc = async () => {
 
     printStatus.value = "🔍 Verifying JWK...\n";
     const isVerified = await verifyJWK( document.uri );
+    addDid(document.location, document.uri);
+    addKey(KeyPairs.privateKey);
     printStatus.value = "✅ JWK verified!\n" + JSON.stringify(isVerified);
 };
 
