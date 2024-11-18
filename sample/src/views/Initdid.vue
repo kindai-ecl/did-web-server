@@ -9,12 +9,14 @@ import { document, removeDoc } from '@/utils/document';
 
 // same as beforeRouteLeave option but with no access to `this`
 onBeforeRouteLeave((to, from) => {
-    const answer = window.confirm(
-        'Do you really want to leave? you have unsaved changes!'
-    )
-    // cancel the navigation and stay on the same page
-    if (!answer) return false
-    removeDoc()
+    if (document.uri) {
+        const answer = window.confirm(
+            'Do you really want to leave? you have unsaved changes!'
+        )
+        // cancel the navigation and stay on the same page
+        if (!answer) return false
+        removeDoc()
+    }
 })
 </script>
 
