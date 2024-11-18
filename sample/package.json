@@ -19,6 +19,7 @@
     "pinia": "^2.2.5",
     "primeicons": "^7.0.0",
     "vue": "^3.4.26",
+    "vue-qrcode-reader": "^5.5.11",
     "vue-router": "4"
   },
   "devDependencies": {
