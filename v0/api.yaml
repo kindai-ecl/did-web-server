@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: DID Document Management API
+  description: API for managing and verifying DID documents.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com
+    description: Production server
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /health:
+    get:
+      summary: Connection check endpoint
+      description: Confirms that the API server is running and reachable.
+      responses:
+        '200':
+          description: API is reachable.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "OK"
+  /did-documents:
+    get:
+      summary: Read a DID documents
+      description: Fetch a stored DID documents which signed VCs or which owner pointed.
+      responses:
+        '200':
+          description: Successfully retrieved DID documents.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "did:web:example.com"
+                    document:
+                      type: object
+        '404':
+          description: Not Found did uri
+    post:
+      summary: Create a new DID document
+      description: Add a new DID document to the store.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "did:web:example.com"
+                document:
+                  type: object
+      responses:
+        '201':
+          description: DID document created successfully.
+        '400':
+          description: Invalid input.
+    put:
+      summary: Update an existing DID document
+      description: Update the DID document corresponding to the given ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "did:web:example.com"
+                document:
+                  type: object
+      responses:
+        '200':
+          description: DID document updated successfully.
+        '404':
+          description: DID document not found.
+    delete:
+      summary: Delete a DID document
+      description: Remove a DID document based on its ID.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: DID document deleted successfully.
+        '404':
+          description: DID document not found.
+  /did-documents/verify:
+    post:
+      summary: Verify a DID document
+      description: Validate the structure and content of a provided DID document.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: object
+      responses:
+        '200':
+          description: DID document is valid.
+        '400':
+          description: Invalid DID document.
