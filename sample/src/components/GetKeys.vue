@@ -25,7 +25,7 @@ const initKeys = async () => {
             "kty": 'EC',
             "crv": 'secp256k1',
         }
-    }
+  }
 
 
   if (key != null) {

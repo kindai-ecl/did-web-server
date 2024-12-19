@@ -18,6 +18,6 @@ import Navber from "@/components/Navber.vue";
     padding: 1rem 0;
     bottom: 0;
     width: 100%;
-    height:3rem;
+    height: 5.4rem;
   }
 </style>

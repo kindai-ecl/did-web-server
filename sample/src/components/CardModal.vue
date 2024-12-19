@@ -1,14 +1,13 @@
 <template>
     <div class="modal-overlay" @click.self="onClose">
       <div class="modal-content">
-        <button class="close-button" @click="onClose">✖</button>
-        <h2 class="modal-title">Card Details</h2>
+        <h2 class="modal-title">{{ card.last4 }}</h2>
         <div class="modal-body">
-          <p><strong>title:</strong> {{ card.last4 }}</p>
           <p><strong>did uri:</strong> {{ card.manufacturer }}</p>
           <p><strong>Expiry Date:</strong> {{ card.expiryDate }}</p>
           <p><strong>Holder:</strong> {{ card.cardHolder }}</p>
         </div>
+        <button>send VPs</button>
       </div>
     </div>
   </template>
@@ -40,7 +39,8 @@
     background: #fff;
     padding: 1.5rem;
     border-radius: 8px;
-    width: 300px;
+    width: 75%;
+    max-width: 500px;
     position: relative;
   }
   .close-button {

@@ -1,7 +1,6 @@
 <template>
     <div>
       <p>
-  
         <select v-model="selectedConstraints">
           <option
             v-for="option in constraintOptions"
@@ -13,46 +12,12 @@
         </select>
       </p>
   
-      <p>
-  
-        <select v-model="trackFunctionSelected">
-          <option
-            v-for="option in trackFunctionOptions"
-            :key="option.text"
-            :value="option"
-          >
-            {{ option.text }}
-          </option>
-        </select>
-      </p>
-  
-      <!-- <p>
-  
-        <span
-          v-for="option in Object.keys(barcodeFormats)"
-          :key="option"
-          class="barcode-format-checkbox"
-        >
-          <input
-            type="checkbox"
-            v-model="barcodeFormats[option]"
-            :id="option"
-          />
-          <label :for="option">{{ option }}</label>
-        </span>
-      </p> -->
-  
       <p class="error">{{ error }}</p>
-  
-      <p class="decode-result">
-        Last result: <b>{{ result }}</b>
-      </p>
   
       <div>
         <qrcode-stream
           :constraints="selectedConstraints"
-          :track="trackFunctionSelected.value"
-          :formats="selectedBarcodeFormats"
+          :track="paintOutline"
           @error="onError"
           @detect="onDetect"
           @camera-on="onCameraReady"
@@ -72,6 +37,9 @@
   function onDetect(detectedCodes) {
     console.log(detectedCodes)
     result.value = JSON.stringify(detectedCodes.map((code) => code.rawValue))
+    console.log(JSON.parse(result.value))
+    //modalだす，Verifyする，署名する，送り返す
+    // JWTで帰ってくるのはVCのみ？JSON-LDでくるのはPayloadのみ？
   }
   
   /*** select camera ***/
@@ -94,7 +62,7 @@
     constraintOptions.value = [
       ...defaultConstraintOptions,
       ...videoDevices.map(({ deviceId, label }) => ({
-        label: `${label} (ID: ${deviceId})`,
+        label: `${label}`,
         constraints: { deviceId }
       }))
     ]
@@ -120,73 +88,35 @@
       ctx.stroke()
     }
   }
-  function paintBoundingBox(detectedCodes, ctx) {
-    for (const detectedCode of detectedCodes) {
-      const {
-        boundingBox: { x, y, width, height }
-      } = detectedCode
-  
-      ctx.lineWidth = 2
-      ctx.strokeStyle = '#007bff'
-      ctx.strokeRect(x, y, width, height)
-    }
-  }
-  function paintCenterText(detectedCodes, ctx) {
-    for (const detectedCode of detectedCodes) {
-      const { boundingBox, rawValue } = detectedCode
-  
-      const centerX = boundingBox.x + boundingBox.width / 2
-      const centerY = boundingBox.y + boundingBox.height / 2
-  
-      const fontSize = Math.max(12, (50 * boundingBox.width) / ctx.canvas.width)
-  
-      ctx.font = `bold ${fontSize}px sans-serif`
-      ctx.textAlign = 'center'
-  
-      ctx.lineWidth = 3
-      ctx.strokeStyle = '#35495e'
-      ctx.strokeText(detectedCode.rawValue, centerX, centerY)
-  
-      ctx.fillStyle = '#5cb984'
-      ctx.fillText(rawValue, centerX, centerY)
-    }
-  }
-  const trackFunctionOptions = [
-    { text: 'nothing (default)', value: undefined },
-    { text: 'outline', value: paintOutline },
-    { text: 'centered text', value: paintCenterText },
-    { text: 'bounding box', value: paintBoundingBox }
-  ]
-  const trackFunctionSelected = ref(trackFunctionOptions[1])
   
   /*** barcode formats ***/
   
-  const barcodeFormats = ref({
-    aztec: false,
-    code_128: false,
-    code_39: false,
-    code_93: false,
-    codabar: false,
-    databar: false,
-    databar_expanded: false,
-    data_matrix: false,
-    dx_film_edge: false,
-    ean_13: false,
-    ean_8: false,
-    itf: false,
-    maxi_code: false,
-    micro_qr_code: false,
-    pdf417: false,
-    qr_code: true,
-    rm_qr_code: false,
-    upc_a: false,
-    upc_e: false,
-    linear_codes: false,
-    matrix_codes: false
-  })
-  const selectedBarcodeFormats = computed(() => {
-    return Object.keys(barcodeFormats.value).filter((format) => barcodeFormats.value[format])
-  })
+  // const barcodeFormats = ref({
+  //   aztec: false,
+  //   code_128: false,
+  //   code_39: false,
+  //   code_93: false,
+  //   codabar: false,
+  //   databar: false,
+  //   databar_expanded: false,
+  //   data_matrix: false,
+  //   dx_film_edge: false,
+  //   ean_13: false,
+  //   ean_8: false,
+  //   itf: false,
+  //   maxi_code: false,
+  //   micro_qr_code: false,
+  //   pdf417: false,
+  //   qr_code: true,
+  //   rm_qr_code: false,
+  //   upc_a: false,
+  //   upc_e: false,
+  //   linear_codes: false,
+  //   matrix_codes: false
+  // })
+  // const selectedBarcodeFormats = computed(() => {
+  //   return Object.keys(barcodeFormats.value).filter((format) => barcodeFormats.value[format])
+  // })
   
   /*** error handling ***/
   
@@ -217,13 +147,16 @@
   </script>
   
   <style scoped>
+  .select{
+    width: 300px;
+  }
   .error {
     font-weight: bold;
     color: red;
   }
-  .barcode-format-checkbox {
-    margin-right: 10px;
-    white-space: nowrap;
-    display: inline-block;
+
+  .qrcode-stream{
+    width :100%;
+    height:1/4;
   }
   </style>

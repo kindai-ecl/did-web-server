@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { document, writeDoc } from '@/utils/document';
+import { didDocument, writeDoc } from '@/utils/document';
 import { KeyPairs } from '@/utils/keys';
 
 var printStatus = ref("");
@@ -16,11 +16,11 @@ const publishDocument = async () => {
     try {
         const did = await writeDoc(jwk);
         if ( did["location"] ) {
-            document.location = did["location"];
-            document.uri = did["uri"];
-            printStatus.value = "✨ DID Document published! \n" + document.location;
+            didDocument.location = did["location"];
+            didDocument.uri = did["uri"];
+            printStatus.value = "✨ DID Document published!";
         } else { 
-            printStatus.value = "⚠ Failed to publish DID Document.\n" + JSON.stringify(did);
+            printStatus.value = "⚠ Failed to publish DID Document.\n";
             isClick.value = false;
         }
     } catch (error) {
@@ -44,8 +44,9 @@ watch(
 </script>
 
 <template>
-    <div class="getKeys" v-if="isAvailable">
-        <h2>Step2. Publish your DID document</h2>
+    <div class="getKeys" v-if="isAvailable || didDocument.verified">
+        <h2 v-if="isAvailable && !isClick">Step2. Publish your DID document</h2>
+        <h2 v-else style="color:darkgray">Step2. Done</h2>
 
         <button type="button" v-bind:disabled="isClick"  @click="publishDocument">Publish</button>
         <pre>{{ printStatus }}</pre>

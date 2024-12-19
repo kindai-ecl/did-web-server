@@ -2,10 +2,15 @@ import { reactive } from 'vue'
 import { KeyPairs } from './keys';
 import { createJWT, ES256KSigner, hexToBytes } from 'did-jwt';
 
-export const document = reactive({
+export const didDocument = reactive({
   location: "",
   uri: "",
   verified: false,
+  init(){
+    this.location = "";
+    this.uri = "";
+    this.verified = false;
+  },
 })
 
 export const writeDoc = async ( jwk, controller="" ) => {
@@ -41,7 +46,6 @@ export const writeDoc = async ( jwk, controller="" ) => {
 
 export const verifyJWK = async ( uri ) => {
   const key = KeyPairs.privateKey;
-  console.log(key);
   const signer = ES256KSigner(hexToBytes(key,32))
 
   // Create a signed JWT

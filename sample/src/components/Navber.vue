@@ -8,7 +8,7 @@ import 'primeicons/primeicons.css';
         <ul class="nav-links">
           <li>
             <router-link
-                to="/"
+                to="/wallet"
                 v-slot="{ href, route, navigate, isActive, isExactActive }"
             >
                 <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->
@@ -22,13 +22,23 @@ import 'primeicons/primeicons.css';
               v-slot="{ href, route, navigate, isActive, isExactActive }"
               >
               <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->
+                  <i class="pi pi-user" style="font-size: 2rem"></i>
+                <!-- </NavLink> -->
+            </router-link>
+          </li>
+            <li>
+              <router-link
+              to="/vc-request"
+              v-slot="{ href, route, navigate, isActive, isExactActive }"
+              >
+              <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->
                   <i class="pi pi-plus" style="font-size: 2rem"></i>
                 <!-- </NavLink> -->
             </router-link>
           </li>
           <li>
             <router-link
-              to="/vc"
+              to="/qr-reader"
               v-slot="{ href, route, navigate, isActive, isExactActive }"
             >
               <!-- <NavLink :active="isActive" :href="href" @click="navigate"> -->

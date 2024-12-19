@@ -12,6 +12,10 @@ export const KeyPairs = reactive({
     }
     console.error('Invalid key object');
     return false;
+  },
+  init() {
+    this.privateKey = "";
+    this.publicKeyJwk = {};
   }
 });
 
